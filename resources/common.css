@@ -1,9 +1,11 @@
 .sensecraft {
   position: relative;
   height: 100%;
-  margin: 15px;
+  margin: 0;
   text-align: center;
   min-width: 400px;
+  background-color: #f6f6f6;
+  padding: 15px;
 }
 
 .title {

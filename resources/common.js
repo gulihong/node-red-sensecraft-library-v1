@@ -46,12 +46,13 @@ function setJsonFn(url, data) {
 // 添加json文件的接口
 function confirmSetJson(url, data) {
   url = url.slice(0, url.indexOf(".json") + 5);
+  // console.log(url, 'save-url')
   $.ajax({
     url: libraryUrl + url,
     type: "POST",
     contentType: "application/json; charset=utf-8",
     data: JSON.stringify(data, null, 2),
-    success: async (res) => {
+    success: (res) => {
       getLocallist();
     },
     error: (err) => {
@@ -163,9 +164,11 @@ function getLocallist() {
     type: "GET",
     contentType: "application/json; charset=utf-8",
     success: async (res) => {
-      flowList = null;
-      flowList = getItemInfoBySplit(res);
-      showDataList(flowList);
+      if (res) {
+        flowList = null;
+        flowList = await getItemInfoBySplit(res);
+        await showDataList(flowList);
+      }
     },
     error: (err) => {
       console.log(err);
@@ -295,7 +298,7 @@ async function saveFlowsFn() {
   }
   )
   console.log(data);
-  setJsonFn(
+  await setJsonFn(
     `flow-${_sensecraft_config.type}$${_sensecraft_config.author}$${wordsToHyphens(name)}$${_sensecraft_config.version}$${_sensecraft_config.time
     }$${desc}.json`,
     data
@@ -529,6 +532,7 @@ function capitalizeFirstLetter(str) {
 // 封装获取 JSON 数据的异步函数
 async function fetchJson(url) {
   try {
+    url = url.slice(0, url.indexOf(".json") + 5);
     // 使用 fetch API 获取数据
     const response = await fetch(url);
 
