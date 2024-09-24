@@ -1,0 +1,184 @@
+<script src="resources/node-red-contrib-sensecraft-library/common.js"></script>
+<script src="resources/node-red-contrib-sensecraft-library/quill/quill.js"></script>
+<script src="resources/node-red-contrib-sensecraft-library/quill/index.js"></script>
+<script type="text/javascript">
+    (function () {
+        $(document).ready(function () {
+            $("img.upright").hide(0).siblings("img.reverse").show(0);
+            editPageShowFn('.page1');
+            // my、community
+            getLocallist();
+            // tabs切换
+            $(".sensecraft .tabs span").click(function () {
+                $(this).siblings().removeClass("active");
+                $(this).addClass("active");
+                const className = $(this)[0].className;
+                if (className && className.indexOf("my") != -1) {
+                    $(".page1 #save-btn-box").show(0);
+                    getLocallist();
+                }
+                if (className && className.indexOf("community") != -1) {
+                    $(".page1 #save-btn-box").hide(0);
+                    getCommunity();
+                }
+                if ($(this)[0].id && /save|import/gi.test($(this)[0].id)) {
+                    if ($(this)[0].id.indexOf('save') != -1) {
+                        showSaveSetting(true);
+                    }
+                } else {
+                    $("#sensecraft-list-box").children().remove();
+                    showSaveSetting(false);
+                }
+            });
+
+            $(".page .btn.back").click(() => { editPageShowFn(".page1"); });
+            $(".page #btn-cancel-update").click(() => {
+                $(".page2 .save-box").hide(0).siblings(".info").show(0);
+            });
+            $(".page .tabs.import span").click(importJsonFn);
+            $(".page .opera-box span").click(operateBtnClick);
+        });
+
+        // The html content of the sidebar has been specified below as a data-template, from where it can be loaded:
+        var content = $(
+            $('script[type="text/x-red"][data-template-name="sensecraft_sidebar"]')
+                .i18n()
+                .html()
+        );
+
+        // Add a "SenseCraft Layout" tabsheet to the right sidebar panel, in which this sidebar panel can be displayed
+        RED.sidebar.addTab({
+            id: "sensecraft-flows",
+            label: "sensecraft_flows", // short name for the tab
+            name: "SenseCraft Flows", // long name for the menu
+            content: content,
+            closeable: true,
+            disableOnEdit: true,
+            iconClass: "fa fa-star",
+        });
+
+        console.log(RED, "RED");
+    })();
+</script>
+
+<script type="text/x-red" data-template-name="sensecraft_sidebar">
+    <div class="sensecraft">
+        <h2 class="title">
+            <img src="resources/node-red-contrib-sensecraft-library/img/sensecraft.webp" />
+            Flows
+        </h2>
+        <div class="page page1">
+            <div class="between">
+                <div class="tabs">
+                    <span class="my active">My</span>
+                    <span class="community">Community</span>
+                </div>
+                <span id="direction-btn" class="btn cancel" style="
+                          min-width: inherit !important;
+                          cursor: pointer;
+                          border: 1px solid #d7dee1;
+                          border-radius: 4px;
+                          padding: 5px;
+                          background: #eafff8;
+                        ">
+                    <img class="reverse" src="resources/node-red-contrib-sensecraft-library/img/reverse.png"
+                        style="height: 16px; width: auto" />
+                    <img class="upright" src="resources/node-red-contrib-sensecraft-library/img/sort.png"
+                        style="height: 16px; width: auto" />
+                </span>
+            </div>
+            <div id="save-btn-box">
+                <div class="save-title">Save Flows:</div>
+                <div class="tabs save">
+                    <span index="1" id="save-nodes">
+                        Selected nodes as snippet
+                    </span>
+                    <span index="2" id="save-flow">Current Flow as snippet</span>
+                    <span index="3" id="save-projects">Whole flow as project</span>
+                </div>
+                <div class="save-box">
+                    <div>
+                        <span>Name:</span>
+                        <input type="text" placeholder="Please input the name to save" id="save-name" />
+                    </div>
+                    <div>
+                        <span>Description:</span>
+                        <textarea rows="5" cols="33" id="save-desc"></textarea>
+                    </div>
+                    <div class="btns">
+                        <span class="btn cancel" id="btn-cancel">Cancel</span>
+                        <span class="btn" id="btn-save">Save</span>
+                    </div>
+                </div>
+            </div>
+            <div id="sensecraft-list-box"></div>
+        </div>
+        <div class="page page2">
+            <div class="back-box">
+                <span class="btn cancel back">Back</span>
+            </div>
+            <div class="detail">
+                <div class="left">
+                    <div class="info">
+                        <div class="title"></div>
+                        <div class="desc"></div>
+                    </div>
+
+                    <div>
+                        <div class="save-title">Import:</div>
+                        <div class="tabs import">
+                            <span index="1" id="import-current">Current Flow</span>
+                            <span index="2" id="import-new">New Flow</span>
+                            <!-- <span index="3" id="import-override">Override</span> -->
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="editor ql-editor"></div>
+                    </div>
+
+                    <div class="save-box">
+                        <div>
+                            <span>Name:</span>
+                        </div>
+                        <div>
+                            <input type="text" placeholder="Please input the name to save" id="update-name" />
+                        </div>
+                        <div>
+                            <span>Description:</span>
+                        </div>
+                        <div>
+                            <textarea rows="5" cols="33" id="update-desc"></textarea>
+                        </div>
+                        <div class="quill-editor-box">
+                            <span>Introduction:</span>
+                        </div>
+                        <div class="quill-editor-box">
+                            <div id="quill-editor"></div>
+                        </div>
+                        <div class="btns">
+                            <span class="btn cancel" id="btn-cancel-update">Cancel</span>
+                            <span class="btn" id="btn-update">Confirm</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="right" style="width:150px;">
+                    <div class="info"></div>
+                    <div class="opera-box">
+                        <span class="delete"><img class="share"
+                                src="resources/node-red-contrib-sensecraft-library/img/delete.png" /> Delete</span>
+                        <br />
+                        <span class="rename"><img class="rename" src="resources/node-red-contrib-sensecraft-library/img/edit.png" />
+                            Rename</span>
+                        <br />
+                        <!-- <span class="share"><img class="share" src="resources/node-red-contrib-sensecraft-library/img/share.png" />
+                            Share</span> -->
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<link rel="stylesheet" type="text/css" href="resources/node-red-contrib-sensecraft-library/common.css" />
+<link rel="stylesheet" type="text/css" href="resources/node-red-contrib-sensecraft-library/quill/quill.snow.css" />

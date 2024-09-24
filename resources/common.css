@@ -1,0 +1,304 @@
+.sensecraft {
+  position: relative;
+  height: 100%;
+  margin: 15px;
+  text-align: center;
+  min-width: 400px;
+}
+
+.title {
+  font-size: 32px;
+  line-height: 1;
+  color: #000;
+}
+
+.flex {
+  display: flex;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.between {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+h2.title img {
+  height: 30px;
+  width: auto;
+  vertical-align: middle;
+}
+
+.tabs {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
+  line-height: 1;
+  width: auto;
+  margin-bottom: 10px;
+}
+
+.tabs span,
+.btn {
+  padding: 10px;
+  text-align: center;
+  color: #8cc020;
+  border: 1px solid #8cc020;
+  border-right: 0px solid;
+  cursor: pointer;
+  min-width: 100px;
+}
+
+.tabs span.active {
+  background: #8cc020;
+  color: #fff;
+}
+
+.tabs span:nth-last-child(1) {
+  border-radius: 0 4px 4px 0;
+  border-right: 1px solid;
+}
+
+.tabs span:nth-of-type(1) {
+  border-radius: 4px 0 0 4px;
+}
+
+.btn {
+  border: 1px solid #8cc020;
+  background: #8cc020;
+  color: #fff !important;
+  margin-right: 10px;
+  line-height: 1;
+  font-size: 12px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.btn.cancel {
+  color: #8cc020 !important;
+  background: #fff;
+}
+
+.btn.cancel.back {
+  border: 1px solid #d7dee1;
+  background: #eafff8;
+  min-width: inherit;
+  color: #000 !important;
+}
+
+.save-title {
+  font-size: 12px;
+  line-height: 20px;
+  text-align: left;
+}
+
+.sensecraft-data-item {
+  display: inline-block;
+  vertical-align: top;
+  width: 40%;
+  min-width: 160px;
+  height: 120px;
+  margin: 0 10px 10px 0;
+  border-radius: 4px;
+  text-align: left;
+  padding: 10px;
+  line-height: 30px;
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: normal;
+  border: 1px solid #d7dee1;
+  position: relative;
+}
+
+.sensecraft-data-item .bottom {
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sensecraft-data-item .desc,
+.sensecraft-data-item .title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  padding: 5px 0;
+}
+
+.sensecraft-data-item .title {
+  -webkit-line-clamp: 1;
+}
+
+.sensecraft-data-item:hover {
+  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.1);
+}
+
+.sensecraft-data-item .title,
+.detail .left .title {
+  font-size: 16px;
+}
+
+.save-box {
+  border: 1px dashed #d7dee1;
+  padding: 10px !important;
+  background-color: #f6f6f6;
+}
+
+.page1 .save-box>div {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.save-box>div input,
+.save-box>div textarea {
+  margin: 0;
+  margin-left: 10px;
+  flex: 1;
+  width: 100%;
+}
+
+.page2 .save-box>div input,
+.page2 .save-box>div textarea {
+  margin-left: 0;
+}
+
+.page2 .save-box>div {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.page2 .save-box>div>span {
+  font-weight: bold;
+}
+
+.save-box>div.btns {
+  justify-content: flex-start;
+  margin-top: 20px;
+}
+
+.opera-box {
+  font-size: 12px;
+  line-height: 30px;
+}
+
+.opera-box span {
+  display: inline-block;
+  vertical-align: middle;
+  color: #374b5e;
+  background: #e5f2ff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin: 10px 0 10px 5px;
+  min-width: 100px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.opera-box span.share {
+  color: #6e5695;
+  background: #efe5ff;
+}
+
+.opera-box span.delete {
+  color: #fa5151;
+  background: #ff140026;
+}
+
+.opera-box img {
+  width: 12px;
+  height: auto;
+  cursor: pointer;
+  vertical-align: text-bottom;
+}
+
+.back-box {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.back-box>div {
+  font-weight: bold;
+}
+
+#quill-editor {
+  margin-bottom: 20px;
+}
+
+#quill-editor>.ql-editor {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  display: inherit;
+  border: 0px solid;
+}
+
+#sensecraft-list-box {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.detail {
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.detail>div {
+  padding: 10px;
+  text-align: right;
+}
+
+.detail .info .title {
+  line-height: 50px;
+  border-bottom: 1px dashed #d7dee1;
+}
+
+.detail .info .desc {
+  padding: 10px 0;
+  line-height: 20px;
+}
+
+.detail .left {
+  flex: 1;
+  text-align: left;
+  line-height: 20px;
+  border-right: 1px solid #d7dee1;
+}
+
+.detail .left>div {
+  padding: 10px 0;
+}
+
+#detail-iframe {
+  width: 100%;
+  min-height: 400px;
+}
+
+.detail .right .info,
+.detail .right .opera-box {
+  line-height: 30px;
+  padding: 10px 5px;
+  border-radius: 4px;
+  font-size: 13px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.detail .left .info .editor .ql-editor {
+  width: 100% !important;
+  height: auto !important;
+}

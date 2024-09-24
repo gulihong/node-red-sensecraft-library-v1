@@ -1,0 +1,92 @@
+[
+    {
+        "id": "9b01a286897457b8",
+        "z": "38f76b452b9e725e",
+        "type": "function",
+        "_def": {
+            "color": "#fdd0a2",
+            "category": "function",
+            "defaults": {
+                "name": {
+                    "value": "_DEFAULT_"
+                },
+                "func": {
+                    "value": "\nreturn msg;"
+                },
+                "outputs": {
+                    "value": 1
+                },
+                "timeout": {
+                    "value": 0
+                },
+                "noerr": {
+                    "value": 0,
+                    "required": true
+                },
+                "initialize": {
+                    "value": ""
+                },
+                "finalize": {
+                    "value": ""
+                },
+                "libs": {
+                    "value": []
+                }
+            },
+            "inputs": 1,
+            "outputs": 1,
+            "icon": "function.svg",
+            "set": {
+                "id": "node-red/function",
+                "name": "function",
+                "types": [
+                    "function"
+                ],
+                "enabled": true,
+                "local": false,
+                "user": false,
+                "module": "node-red",
+                "version": "4.0.1",
+                "added": true
+            },
+            "type": "function"
+        },
+        "inputs": 1,
+        "outputs": 1,
+        "name": "function 1",
+        "func": "\nreturn msg;",
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "dirty": false,
+        "changed": true,
+        "moved": true,
+        "w": 120,
+        "h": 30,
+        "resize": false,
+        "l": true,
+        "x": 160,
+        "y": 640,
+        "valid": true,
+        "validationErrors": [],
+        "selected": true,
+        "_index": 1,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ff55500100010001",
+        "type": "comment",
+        "name": "",
+        "info": "",
+        "_sensecraft_config": {
+            "name": "asdasdad",
+            "desc": "asddasdada",
+            "time": 1724913055207,
+            "type": "1"
+        }
+    }
+]
