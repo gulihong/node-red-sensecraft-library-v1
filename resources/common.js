@@ -264,6 +264,8 @@ async function saveFlowsFn() {
       subFlowInfo.out = subFlowInfo.out.map((item) => { return { x: item.x, y: item.y, wires: getWiresBySubflowFn(wireDetails, item.id) } })
       subFlowInfo.in = subFlowInfo.in.map((item) => { return { x: item.x, y: item.y, wires: getWiresBySubflowFn(wireDetails, item.id) } })
       subFlowInfo.status = { x: subFlowInfo.status.x, y: subFlowInfo.status.y, wires: getWiresBySubflowFn(wireDetails, subFlowInfo.status.id) }
+      subFlowInfo.inputs = subFlowInfo.in.length
+      subFlowInfo.outputs = subFlowInfo.out.length
       data.push(subFlowInfo);
     }
     // 获取当前页所有节点
@@ -275,10 +277,11 @@ async function saveFlowsFn() {
       data.push(worksapce);
     });
     // 获取所有subflows
-    RED.nodes.eachSubflow(function (subflow) {
-      subflow = Object.assign({}, subflow);
-      data.push(subflow);
-    });
+    // RED.nodes.eachSubflow(function (subflow) {
+    //   subflow = Object.assign({}, subflow);
+    //   delete subflow.instances
+    //   data.push(subflow);
+    // });
     // 获取所有config
     RED.nodes.eachConfig(function (config) {
       config = Object.assign({}, config);
@@ -298,7 +301,7 @@ async function saveFlowsFn() {
   }
   )
   console.log(data);
-  await setJsonFn(
+  setJsonFn(
     `flow-${_sensecraft_config.type}$${_sensecraft_config.author}$${wordsToHyphens(name)}$${_sensecraft_config.version}$${_sensecraft_config.time
     }$${desc}.json`,
     data
@@ -338,7 +341,7 @@ function getNodeDataAll(key, value) {
     });
 
     let nodeObj = Object.assign({}, node);
-    nodeObj.wires = [wires];
+    nodeObj.wires = nodeObj.outputs !== 0 ? [wires] : [];
     if (key && value) {
       if (nodeObj[key] == value) arr.push(nodeObj);
     } else {
